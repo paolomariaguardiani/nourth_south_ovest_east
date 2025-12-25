@@ -1,0 +1,68 @@
+#generale {
+    margin-top: 0px;
+    display:flex;
+    flex-flow:column;
+    align-content: center;
+    align-items: center;
+}
+
+#title {
+    margin-top: 0px;
+    background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    width: 1000px;
+    padding: 5px;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    font-size: 2em;
+}
+
+body {
+    background: #f06;
+    background:linear-gradient(90deg, #8b591f, grey);
+    min-height: 100%;
+}
+
+#canvas {
+    background-image: url('images/sfondo.png');
+    /* display: flex;
+    flex-flow: row;
+    align-content: center;
+    justify-content: center;
+    border: 10px groove coral; */
+}
+
+body {
+    overflow:auto;
+}
+
+h1 {
+    border-color: 2px solid blue;
+}
+
+#north, #south, #ovest, #east {
+    color: white;
+    width: 180px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 20px;
+    background-color: rgb(28, 28, 226);
+    font-size: 1.0em;
+}
+
+#stop {
+    color: white;
+    width: 180px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin: 10px;
+    background-color: rgb(255, 0, 0);
+    font-size: 1.0em;
+}
+
+button:hover {
+    background-color: #9f29b4;
+    color: yellow;
+}
