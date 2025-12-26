@@ -38,7 +38,7 @@ var clacson2 = new Howl({
 });
 var clacson3 = new Howl({
     src: ['audio/goofy-ahh-car-horn.mp3'],
-    volume: 0.02;
+    volume: 0.02
 });
 var car_engine_01 = new Howl({
     src: ['audio/car-engine-start-outside.mp3'],
