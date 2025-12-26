@@ -27,6 +27,25 @@ var applePosYs = [100, 70,  60,  400, 300, 345, 415]; // lista delle possibili c
 var score = 0
 var message = "SCORE: 🍎 x "
 
+// Carico i suoni
+var clacson = new Howl({
+    src: ['audio/double-car-horn.mp3'],
+    volume: 0.06
+});
+var clacson2 = new Howl({
+    src: ['audio/old-car-horn.mp3'],
+    volume: 0.05
+});
+var clacson3 = new Howl({
+    src: ['audio/goofy-ahh-car-horn.mp3'],
+    volume: 0.05
+});
+var car_engine = new Howl({
+    src: ['audio/car-engine-start-outside.mp3'],
+    loop: true,
+    volume: 0.09
+});
+car_engine.play(); // faccio partire subito il suono del motore
 
 
 // thanks to Gemini (non sapevo come ruotare un'immagine)
@@ -65,6 +84,7 @@ function goNorth() {
     angolazioneGradi = 0;
     dx = 0;
     dy = -1;
+    car_engine.play();
 }
 
 
@@ -72,6 +92,7 @@ function goSouth() {
     angolazioneGradi = 180;
     dx = 0;
     dy = 1;
+    car_engine.play();
 }
 
 
@@ -79,6 +100,7 @@ function goOvest() {
     angolazioneGradi = 270;
     dx = -1;
     dy = 0;
+    car_engine.play();
 }
 
 
@@ -86,12 +108,14 @@ function goEast() {
     angolazioneGradi = 90;
     dx = 1;
     dy = 0;
+    car_engine.play();
 }
 
 
 function stop() {
     dx = 0;
     dy = 0;
+    car_engine.stop();
 }
 
 
@@ -124,6 +148,18 @@ function update() {
         applePosX = applePosXs[indexCasuale];
         applePosY = applePosYs[indexCasuale];
         score ++;
+        // clacson.play();
+        if (score % 3 == 0){  // suona il clacson speciale ogni tre punti
+            clacson2.play();
+        }
+        else if (score % 5 == 0) {
+            clacson3.play();
+        }
+        else {
+            clacson.play();
+        }
+        // fermo il motore
+        car_engine.stop();
     }
 
     requestAnimationFrame(update);
