@@ -13,7 +13,7 @@ var spostamento = 15
 // thanks to https://youtu.be/-wSn49DV9qU?si=70AgLI9cPVMS99et
 var carPosX = 20;
 var carPosY = 210;
-var speed = 1;
+var speed = 2;
 var dx = 0; 
 var dy = 0;
 
@@ -38,14 +38,21 @@ var clacson2 = new Howl({
 });
 var clacson3 = new Howl({
     src: ['audio/goofy-ahh-car-horn.mp3'],
-    volume: 0.05
+    volume: 0.02;
 });
-var car_engine = new Howl({
+var car_engine_01 = new Howl({
     src: ['audio/car-engine-start-outside.mp3'],
     loop: true,
     volume: 0.09
 });
-car_engine.play(); // faccio partire subito il suono del motore
+var car_engine_02 = new Howl({
+    src: ['audio/car-engine-start-outside_02.mp3'],
+    loop: true,
+    volume: 0.09
+});
+// car_engine_01.play(); // faccio partire subito il suono del motore
+// engine_status mi serve per scegliere se far partire car_engine_01 o car_engine_02
+var engine_status = "off";
 
 
 // thanks to Gemini (non sapevo come ruotare un'immagine)
@@ -79,12 +86,23 @@ function draw() {
     ctx.closePath();
 }
 
+function playEngine() {
+    car_engine_01.stop();
+    car_engine_02.stop();
+    if (engine_status == "off") {
+        car_engine_01.play();
+    }
+    else {
+        car_engine_02.play();
+    }
+}
 
 function goNorth() {
     angolazioneGradi = 0;
     dx = 0;
     dy = -1;
-    car_engine.play();
+    playEngine();
+    engine_status = "on";
 }
 
 
@@ -92,7 +110,8 @@ function goSouth() {
     angolazioneGradi = 180;
     dx = 0;
     dy = 1;
-    car_engine.play();
+    playEngine();
+    engine_status = "on";
 }
 
 
@@ -100,7 +119,8 @@ function goOvest() {
     angolazioneGradi = 270;
     dx = -1;
     dy = 0;
-    car_engine.play();
+    playEngine();
+    engine_status = "on";
 }
 
 
@@ -108,14 +128,17 @@ function goEast() {
     angolazioneGradi = 90;
     dx = 1;
     dy = 0;
-    car_engine.play();
+    playEngine();
+    engine_status = "on";
 }
 
 
 function stop() {
     dx = 0;
     dy = 0;
-    car_engine.stop();
+    car_engine_01.stop();
+    car_engine_02.stop();
+    engine_status = "off";
 }
 
 
@@ -136,7 +159,21 @@ const getRandomInt = (min = 0, max = 1) => {
 function update() {
     carPosX += dx;
     carPosY += dy;
-
+    
+    // faccio comparire la macchina dall'altra parte dello schermo
+    if (carPosX > 1000 + larghezza) {
+        carPosX = 0 - larghezza;
+    }
+    if (carPosX < 0 - larghezza) {
+        carPosX = 1000 + larghezza;
+    }
+    if (carPosY > 500) {
+        carPosY = 0 - altezza;
+    }
+    if (carPosY < 0 - altezza) {
+        carPosY = 500;
+    }
+    
     draw();
 
     if (getDistance(carPosX, carPosY, applePosX, applePosY) < 50) {
@@ -159,7 +196,10 @@ function update() {
             clacson.play();
         }
         // fermo il motore
-        car_engine.stop();
+        car_engine_01.stop();
+        car_engine_02.stop();
+        engine_status = "off";
+
     }
 
     requestAnimationFrame(update);
