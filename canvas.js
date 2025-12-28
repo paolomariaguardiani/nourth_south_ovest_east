@@ -6,6 +6,12 @@ car_01.src = 'images/car_01.png';
 const apple_01 = new Image();
 apple_01.src = 'images/apple_01.png';
 
+// creo una mela che si muove - questo codice serve per creare un'altro sprite che si muove
+// const apple_02 = new Image();
+// apple_02.src = "images/apple_01.png"
+// ap2x = 100;
+// ap2y = 100;
+
 var larghezza = 126 / 4;
 var altezza = 254 / 4; 
 var angolazioneGradi = 90;
@@ -55,6 +61,7 @@ var car_engine_02 = new Howl({
 var engine_status = "off";
 
 
+
 // thanks to Gemini (non sapevo come ruotare un'immagine)
 function disegnaAuto(img, carPosX, carPosY, larghezza, altezza, angolazioneGradi) {
     // 1. Salva lo stato attuale del canvas (posizione 0,0, rotazione attuale, ecc.)
@@ -73,6 +80,8 @@ function draw() {
     
     disegnaAuto(car_01, carPosX, carPosY, larghezza, altezza, angolazioneGradi);
     ctx.drawImage(apple_01, applePosX, applePosY, 40, 40);
+
+    // ctx.drawImage(apple_02, ap2x, ap2y, 40, 40);
 
     ctx.beginPath();
     ctx.rect(825, 10, 170, 40);
@@ -205,5 +214,16 @@ function update() {
     requestAnimationFrame(update);
 }
 
-update();
+// function animateApple() {
+//     ap2x ++;
+//     ap2y ++;
 
+//     draw();
+
+//     requestAnimationFrame(animateApple);
+
+// }
+
+// animateApple();
+
+update();
